@@ -25,6 +25,8 @@ const ValidateRuc = (update) => {
                 console.log("mensaje de respuesta: " + response.status);
                 console.log(response.data);
             })
+        update();
+        state.screen = PerfilRegister;
     });
     return formContainer;
 };
