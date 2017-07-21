@@ -8,6 +8,8 @@ const details = () => {
                             <li>Tipo de Contribuyente: ${state.dataSunat.tipo_contribuyente}</li>
                             <li>Dirección: ${state.dataSunat.direccion}</li>
                       </ul>`);
+    const messageValidate = $('<span></span>');
+    const btnSave = $('<button id="btnSend" type="submit" disabled>Guardar Datos</button>');
 
     if ((typeof state.dataSunat)=== "string"){
         divResponse.empty();
@@ -15,10 +17,20 @@ const details = () => {
     }else {
         divResponse.empty();
         divResponse.append(ulData);
-    }
+        divResponse.append(btnSave);
 
-    // update();
-    // state.screen = PerfilRegister;
+        if (state.dataSunat.tipo_contribuyente == "PERSONA NATURAL SIN NEGOCIO"){
+            messageValidate.text('Para poder registrarte debes tener un negocio mayor a 1 año');
+            disabledButton(btnSend.attr('id'));
+        }else {
+            enabledButton(btnSend.attr('id'));
+        }
+    }
+    btnSave.on('click',() => {
+        state.screen = PerfilRegister;
+        update();
+    });
+
     return divResponse;
 };
 const ValidateRuc = (update) => {
