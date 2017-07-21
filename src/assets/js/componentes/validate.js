@@ -9,7 +9,8 @@ const ValidateRuc = (update) => {
     formContainer.append(labelRuc);
     formContainer.append(inputRuc);
     formContainer.append(btnValidate);
-
+    
+    
     btnValidate.on('click', (e) =>{
         e.preventDefault();
         const tecactusApi = new TecactusApi("dTBvBWAG9zNqDaIdYUPaPxirTypgikwWEvUVDJqT");
@@ -25,8 +26,9 @@ const ValidateRuc = (update) => {
                 console.log("mensaje de respuesta: " + response.status);
                 console.log(response.data);
             })
-        update();
-        state.screen = PerfilRegister;
+       /* update();
+        state.screen = PerfilRegister;*/
     });
+    formContainer.append(message);
     return formContainer;
 };
