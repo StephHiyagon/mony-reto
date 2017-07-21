@@ -12,7 +12,8 @@ const render = (root)=>{
     root.append(section);
 };
 const state = {
-    screen : null
+    screen : null,
+    dataSunat : null
 }
 $( _=>{
     const root =$('#root');

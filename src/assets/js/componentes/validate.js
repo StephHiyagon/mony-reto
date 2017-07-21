@@ -1,10 +1,32 @@
+const details = () => {
+    const divResponse = $('<div class="response"></div>');
+    const message = $('<span></span>');
+    const ulData = $(`<ul>
+                            <li>Ruc: ${state.dataSunat.ruc}</li>
+                            <li>Razon Social: ${state.dataSunat.razon_social}</li>
+                            <li>Estado Contribuyente: ${state.dataSunat.estado_contribuyente}</li>
+                            <li>Tipo de Contribuyente: ${state.dataSunat.tipo_contribuyente}</li>
+                            <li>Dirección: ${state.dataSunat.direccion}</li>
+                      </ul>`);
+
+    if ((typeof state.dataSunat)=== "string"){
+        divResponse.empty();
+        divResponse.append(message);
+    }else {
+        divResponse.empty();
+        divResponse.append(ulData);
+    }
+
+    // update();
+    // state.screen = PerfilRegister;
+    return divResponse;
+};
 const ValidateRuc = (update) => {
     const formContainer = $('<form action=""></form>');
-    const div = $('<div class=""></div>');
+
     const labelRuc = $('<label for="ruc">RUC</label>');
     const inputRuc = $('<input id="ruc" type="number" placeholder="Ingresa RUC de 12 dígitos">');
     const btnValidate = $('<input id="consultar" type="submit" value="Consultar">');
-    const message = $('<span></span>');
 
     formContainer.append(labelRuc);
     formContainer.append(inputRuc);
@@ -17,7 +39,8 @@ const ValidateRuc = (update) => {
             .then(function (response) {
                 message.empty();
                 console.log("consulta correcta!");
-                message.text(response.data);
+                state.dataSunat = response.data;
+                details(update);
             })
             .catch(function (response) {
                 console.log("algo ocurrió");
@@ -25,8 +48,6 @@ const ValidateRuc = (update) => {
                 console.log("mensaje de respuesta: " + response.status);
                 console.log(response.data);
             })
-        update();
-        state.screen = PerfilRegister;
     });
     return formContainer;
 };
